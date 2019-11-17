@@ -1,8 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	/* LOCAL IMPORTS */
-	"./models"
+	"internet-shop/models"
 
 	/* GITHUB IMPORTS */
 	"github.com/gorilla/mux"
@@ -10,14 +11,15 @@ import (
 	/* COMPILATOR BUILT-IN IMPORTS */
 	"log"
 	"net/http"
+	"strconv"
 )
 
 var products []models.Product
 
 func main() {
 	products = append(products,
-		models.Product{ID: 1, Name: "Python: the terminator", FilmDirector: "Py Python", Year: "1992"},
-		models.Product{ID: 2, Name: "Golang: the terminate of Python", FilmDirector: "Go Gopher", Year: "2010"})
+		models.Product{ID: 1, ProductName: "Python: the terminator", Seller: "Py Python", Price: 1992},
+		models.Product{ID: 2, ProductName: "Golang: the terminate of Python", Seller: "Go Gopher", Price: 2010})
 
 	rout := mux.NewRouter()
 
@@ -28,11 +30,16 @@ func main() {
 }
 
 func getProducts(w http.ResponseWriter, r *http.Request) {
-	log.Println("All products")
+	log.Println(products)
+	json.NewEncoder(w).Encode(products)
 }
 
 func getProduct(w http.ResponseWriter, r *http.Request) {
+	var product models.Product
 	urlMap := mux.Vars(r)
-	id := urlMap["id"]
-	log.Printf("Product with id=%s", id)
+	idS := urlMap["id"]
+	id, _ := strconv.Atoi(idS)
+	product = products[id]
+	log.Println(product)
+	json.NewEncoder(w).Encode(product)
 }
