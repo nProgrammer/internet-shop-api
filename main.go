@@ -12,10 +12,8 @@ import (
 
 	/* COMPILATOR BUILT-IN IMPORTS */
 	"database/sql"
-	"encoding/json"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 var products []models.Product
