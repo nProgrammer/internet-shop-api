@@ -16,8 +16,9 @@ import (
 
 type HandledFunctions struct{}
 
-func (h HandledFunctions) GetProducts(db *sql.DB, products []models.Product) http.HandlerFunc {
+func (h HandledFunctions) GetProducts(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		var products []models.Product
 		var product models.Product
 		rows, _ := db.Query("select * from products")
 		defer rows.Close()
