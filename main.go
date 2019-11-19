@@ -24,15 +24,15 @@ func init() {
 }
 
 func main() {
-	hundler := HandledFunctions.HandledFunctions{}
+	handler := HandledFunctions.HandledFunctions{}
 
 	db = cfg.ConnectDB(db)
 
 	log.Println("server is running on port :8000")
 
 	rout := mux.NewRouter()
-	rout.HandleFunc("/products", hundler.GetProducts(db, products)).Methods("GET")
-	//rout.HandleFunc("/products/{id}", getProduct).Methods("GET")
+	rout.HandleFunc("/products", handler.GetProducts(db, products)).Methods("GET")
+	rout.HandleFunc("/products/{id}", handler.GetProduct(db)).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", rout))
 }

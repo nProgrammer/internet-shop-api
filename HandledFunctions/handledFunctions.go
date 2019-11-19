@@ -1,6 +1,9 @@
 package HandledFunctions
 
 import (
+	/* GITHUB IMPORTS */
+	"github.com/gorilla/mux"
+
 	/* LOCAL IMPORTS */
 	"internet-shop/models"
 
@@ -8,6 +11,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 type HandledFunctions struct{}
@@ -24,5 +28,18 @@ func (h HandledFunctions) GetProducts(db *sql.DB, products []models.Product) htt
 			products = append(products, product)
 		}
 		json.NewEncoder(w).Encode(products)
+	}
+}
+
+func (h HandledFunctions) GetProduct(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		params := mux.Vars(r)
+		idS := params["id"]
+		id, _ := strconv.Atoi(idS)
+		var product models.Product
+		rows := db.QueryRow("select * from products where id=$1", id)
+		err := rows.Scan(&product.ID, &product.ProductName, &product.Seller, &product.Price)
+		models.LogFatal(err)
+		json.NewEncoder(w).Encode(product)
 	}
 }
