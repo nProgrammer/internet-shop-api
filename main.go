@@ -30,6 +30,7 @@ func main() {
 	rout := mux.NewRouter()
 	rout.HandleFunc("/products", handler.GetProducts(db)).Methods("GET")
 	rout.HandleFunc("/products/{id}", handler.GetProduct(db)).Methods("GET")
+	rout.HandleFunc("/products/{id}", handler.DeleteProduct(db)).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8000", rout))
 }
