@@ -56,3 +56,16 @@ func (h HandledFunctions) DeleteProduct(db *sql.DB) http.HandlerFunc {
 		json.NewEncoder(w).Encode(rowsUpdated)
 	}
 }
+
+func (h HandledFunctions) AddProduct(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var product models.Product
+
+		json.NewDecoder(r.Body).Decode(&product)
+
+		err := db.QueryRow("insert into products (productName, seller, price) values($1, $2, $3) RETURNING id;",
+			product.ProductName, product.Seller, product.Price).Scan(&product.ID)
+		models.LogFatal(err)
+		json.NewEncoder(w).Encode(product)
+	}
+}

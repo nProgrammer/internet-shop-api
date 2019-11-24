@@ -14,6 +14,7 @@ func RouterFunc(handlerP products2.HandledFunctions, handlerU users2.HandledFunc
 	rout.HandleFunc("/products", handlerP.GetProducts(db)).Methods("GET")
 	rout.HandleFunc("/products/{id}", handlerP.GetProduct(db)).Methods("GET")
 	rout.HandleFunc("/products/{id}", handlerP.DeleteProduct(db)).Methods("DELETE")
+	rout.HandleFunc("/products", handlerP.AddProduct(db)).Methods("POST")
 
 	/* USERS HANDLERS */
 	rout.HandleFunc("/users", handlerU.GetUsers(db)).Methods("GET")
