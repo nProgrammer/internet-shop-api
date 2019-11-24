@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/subosito/gotenv"
-	"internet-shop/API-functions/cfg"
+	"internet-shop/API-functions"
 )
 
 func init() {
@@ -10,5 +10,5 @@ func init() {
 }
 
 func main() {
-	cfg.StartApi()
+	API_functions.StartApi()
 }

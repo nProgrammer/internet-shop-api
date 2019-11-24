@@ -1,4 +1,4 @@
-package API_functions
+package cfg
 
 import (
 	"database/sql"

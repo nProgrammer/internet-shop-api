@@ -1,10 +1,9 @@
-package cfg
+package API_functions
 
 import (
-	/* LOCAL IMPORTS */
-	handle "internet-shop/API-functions"
 	products2 "internet-shop/API-functions/HandledFunctions/products"
 	users2 "internet-shop/API-functions/HandledFunctions/users"
+	"internet-shop/API-functions/cfg"
 
 	/* COMPILATOR BUILT-IN IMPORTS */
 	"database/sql"
@@ -18,9 +17,9 @@ func StartApi() {
 	handlerP := products2.HandledFunctions{}
 	handlerU := users2.HandledFunctions{}
 
-	db = ConnectDB(db)
+	db = cfg.ConnectDB(db)
 
-	rout := handle.RouterFunc(handlerP, handlerU, db)
+	rout := cfg.RouterFunc(handlerP, handlerU, db)
 
 	log.Fatal(http.ListenAndServe(":8000", rout))
 
