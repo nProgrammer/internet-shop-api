@@ -1,4 +1,4 @@
-package HandledFunctions
+package products
 
 import (
 	/* GITHUB IMPORTS */
