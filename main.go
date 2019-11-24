@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/subosito/gotenv"
-	"internet-shop/cfg"
+	"internet-shop/API-functions/cfg"
 )
 
 func init() {

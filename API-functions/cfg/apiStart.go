@@ -1,9 +1,8 @@
 package cfg
 
 import (
-	/* LOCAL IMPORTS */
-	"internet-shop/HandledFunctions/products"
-	"internet-shop/HandledFunctions/users"
+	products2 "internet-shop/API-functions/HandledFunctions/products"
+	users2 "internet-shop/API-functions/HandledFunctions/users"
 
 	/* GITHUB IMPORTS */
 	"github.com/gorilla/mux"
@@ -17,8 +16,8 @@ import (
 var db *sql.DB
 
 func StartApi() {
-	handlerP := products.HandledFunctions{}
-	handlerU := users.HandledFunctions{}
+	handlerP := products2.HandledFunctions{}
+	handlerU := users2.HandledFunctions{}
 
 	db = ConnectDB(db)
 
